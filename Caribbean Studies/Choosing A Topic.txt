@@ -1,0 +1,15 @@
+THEME
+Disease
+
+SUBTHEME
+Impacts of Waterborne and vector diseases
+
+PROBLEM STATEMENT
+A survey of the impacts of waterborne and vector diseases on the residents of Georgetown's Stabroek neighbourhood, Guyana.
+
+RESEARCH QUESTIONS
+1. What kinds of diseases are found in the neighbourhood of Stabroek?
+2. What causes these diseases?
+3. What effects do those diseases have on residents?
+4. What are some solutions to the disease problem in the neighbourhood of Stabroek?
+

@@ -1,0 +1,151 @@
+Declare structure 'inventory'
+Declare *pointer in inventory as FILE
+Declare tempint in inventory as integer
+Declare *output in inventory as char
+Declare barcode in inventory as char array of length 15
+Declare label in inventory as char array of length 50
+Declare price in inventory as char array of length 15
+Declare tempchar in inventory as char array of length 100
+Declare size in inventory as unsigned datatype size_t
+
+Declare function prototypes Locate(), Append(), Display(), Delete(), Search()
+
+Declare choice as character
+
+START
+Writeln("MATTHEW'S GROCERY STORE INVENTORY")
+
+Locate()
+
+Writeln("INVENTORY OPTIONS")
+Writeln("a = Append/Create inventory")
+Writeln("b = Display inventory")
+Writeln("c = Delete inventory")
+Writeln("d = Search inventory")
+Write("Choice:")
+Readln(choice)
+
+if(choice == 'a') then
+	Append()
+else if(choice == 'b') then
+	Display()
+else if(choice == 'c') then
+	Delete()
+else if(choice == 'd') then
+	Search()
+else
+	Writeln("Error parsing data. Check input.")
+endif
+
+Write("Continue(y/n)?:")
+Readln(choice)
+
+if(choice == 'y') then
+	main()
+else if(choice == 'n') then
+	Writeln("Exiting.")
+	exit(0)
+else
+	Write("Error in input. Exiting.")
+	exit(0)
+endif
+STOP
+
+Locate()
+Begin
+Declare structure locate
+
+Declare locate.pointer to read database.dat	
+if(locate.pointer==NULL) then
+	writeln("There is no file. Place file in default directory.")
+else
+	writeln("Successfully located file.")
+endif
+close file
+End
+
+Append()
+Begin
+Declare structure append
+barcodetest <- "MGSI"
+
+Write("8-Digit Barcode#(MGSI----):")
+Readln(append.barcode)
+append.tempint <- string length of append.barcode
+
+if(barcodetest == 1st 4 characters of append.barcode) then
+	write("Wrong input.")
+else if(append.tempint is not equal to 8) then
+	write("Wrong input.")
+endif
+
+write("Name:")
+readln(append.label)
+write("Price($):)
+readln(append.price)
+
+Declare append.pointer to append to database.dat
+Append append.barcode to file
+write("Copied ", append.barcode)
+Append append.price to file
+write(", " append.price)
+Append append.label to file and insert newline
+write("and ",append.label)
+close file
+End
+
+Display()
+Begin
+Declare structure display
+
+Declare display.pointer to read database.dat
+if(display.pointer==NULL) then
+	write("There is no file.")
+else
+	seek end location of display.pointer
+	display.tempint <- end location of display.pointer
+	seek start location of display.pointer
+
+	allocate (display.tempint+1) memory to buffer display.output
+	display.size <- size of display.output
+	display.out[display.size] <- 0
+
+	write("Barcode Number 	Price($)	Label")
+	writeln(display.output)
+
+	free buffer display.output
+end if
+close file
+End
+
+Delete()
+Begin
+remove database.dat
+writeln("Successfully deleted file.);
+End
+
+Search()
+Begin
+Declare structure search
+
+Declare search.pointer to read database.dat
+if(search.pointer==NULL) then
+	write("There is no file.")
+else
+	write("8-Digit Barcode#(MGSI----):")
+	read(search.barcode)
+	
+	while(end of search.pointer is not reached) do {
+		store currentline in search.tempchar
+		search.output <- NULL if(search.barcode!=search.pointer)
+		
+		if(search.output == NULL) then
+			writeln("Not found.")
+		else
+			writeln("Found record.")
+			writeln(search.tempchar)
+		end if
+	}
+endif
+close file
+End
